@@ -1,0 +1,18 @@
+.inventory {
+  width: 80vw;
+  &__title {
+    display: block;
+    text-align: center;
+    margin: 0;
+    line-height: 36px;
+  }
+
+  &__box {
+    height: 28.23vw;
+    margin: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(17, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 0px 0px;
+  }
+}
