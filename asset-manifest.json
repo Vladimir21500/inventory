@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inventory/static/css/main.42a09cc9.css",
+    "main.js": "/inventory/static/js/main.abeea3b0.js",
+    "index.html": "/inventory/index.html",
+    "main.42a09cc9.css.map": "/inventory/static/css/main.42a09cc9.css.map",
+    "main.abeea3b0.js.map": "/inventory/static/js/main.abeea3b0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.42a09cc9.css",
+    "static/js/main.abeea3b0.js"
+  ]
+}
