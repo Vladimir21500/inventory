@@ -102,7 +102,7 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
       onDrop={(event) => dropHandler(event, { id, data })}
       data-type={type}
     >
-      {data === null ? "" : data}
+      {data === null ? "" : <span>{data}</span>}
     </div>
   );
 };
