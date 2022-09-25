@@ -13,7 +13,7 @@ const Container: React.FC<IContainer> = ({ items, type }) => {
   return (
     <div className='container'>
       {items.map((item) => (
-        <Cell key={item.id} {...item} type={type} />
+        <Cell key={item.id} item={item} type={type} />
       ))}
     </div>
   );

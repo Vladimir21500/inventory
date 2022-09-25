@@ -11,7 +11,7 @@ const Inventory: React.FC<{}> = () => {
     <div className='inventory'>
       <h1 className='inventory__title'>Inventory</h1>
       <div className='inventory__box'>
-        {items.map((col) => col.map((item) => <Cell key={item.id} {...item} type='inventory' />))}
+        {items.map((col) => col.map((item) => <Cell key={item.id} item={item} type='inventory' />))}
       </div>
     </div>
   );

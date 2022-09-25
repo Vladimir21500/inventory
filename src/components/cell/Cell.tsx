@@ -9,17 +9,16 @@ import {
 } from "../../state/slicers/containersSlice";
 import { setCurrentItem, resetCurrentItem } from "../../state/slicers/currentItemSlicer";
 import { addItem, deleteItem } from "../../state/slicers/inventorySlice";
-import { IItem, ItemType } from "../../types/items";
+import { IItem, IPosition, ISize, ItemType } from "../../types/items";
 
 import "./cell.scss";
 
 interface ICell {
-  id: string;
-  data: string | null;
+  item: IItem;
   type: ItemType;
 }
 
-const Cell: React.FC<ICell> = ({ id, data, type }) => {
+const Cell: React.FC<ICell> = ({ item, type }) => {
   const dispatch = useAppDispatch();
   const currentItem = useAppSelector((state) => state.currentItem);
 
@@ -49,44 +48,48 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
 
     switch (currentItem.type) {
       case "inventory":
-        if (checkTargetCellData(type, id)) {
+        if (checkTargetCellData(type, item.position)) {
           alert("cell is not empty");
           break;
         }
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetposition: position }));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetposition: position }));
 
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        if (type === "inventory")
+          dispatch(addItem({ item: currentItem.item, targetPosition: item.position }));
 
-        dispatch(deleteItem(currentItem.item.id));
+        dispatch(deleteItem(currentItem.item.position));
         break;
       case "player":
-        if (checkTargetCellData(type, id)) {
+        if (checkTargetCellData(type, position)) {
           alert("cell is not empty");
           break;
         }
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetposition: position }));
 
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetposition: position }));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetposition: position }));
 
-        dispatch(deleteItemFromPlayer(currentItem.item.id));
+        dispatch(deleteItemFromPlayer(currentItem.item.position));
         break;
 
       case "bag":
-        if (checkTargetCellData(type, id)) {
+        if (checkTargetCellData(type, position)) {
           alert("cell is not empty");
           break;
         }
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetposition: position }));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetposition: position }));
 
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetposition: position }));
 
-        dispatch(deleteItemFromBag(currentItem.item.id));
+        dispatch(deleteItemFromBag(currentItem.item.position));
         break;
     }
     dispatch(resetCurrentItem());
@@ -96,13 +99,13 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
     <div
       className='cell'
       draggable
-      onDragStart={(event) => dragStartHandler(event, { id, data }, type)}
+      onDragStart={(event) => dragStartHandler(event, item, type)}
       onDragLeave={(event) => dragLeaveHandler(event)}
       onDragOver={(event) => dragOverHandler(event)}
-      onDrop={(event) => dropHandler(event, { id, data })}
+      onDrop={(event) => dropHandler(event, item)}
       data-type={type}
     >
-      {data === null ? "" : <span>{data}</span>}
+      {item.data === null ? "" : <span>{item.data}</span>}
     </div>
   );
 };

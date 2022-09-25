@@ -7,6 +7,11 @@ export const addInventory = (boxId: string, x: number, y: number): boolean => {
     console.log("incorrect boxId");
     return false;
   }
-  store.dispatch(addItem({ item: { id: boxId, data: "from console" }, targetId: boxId }));
+  store.dispatch(
+    addItem({
+      item: { id: "FrCons", data: "console thing", size: { x, y }, position: { i, j } },
+      targetPosition: { i, j },
+    })
+  );
   return true;
 };

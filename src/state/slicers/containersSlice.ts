@@ -10,6 +10,8 @@ interface IContainersState {
 const items = new Array(5).fill(null).map((item, index) => ({
   id: `${index}`,
   data: null,
+  size: { x: 1, y: 1 },
+  position: { i: index },
 }));
 
 const initialState: IContainersState = {
@@ -22,7 +24,6 @@ export const containersSlice = createSlice({
   initialState,
   reducers: {
     addItemToBag: (state, action: PayloadAction<{ item: IItem; targetId: string }>) => {
-      //! not use item.id
       const { item, targetId } = action.payload;
       if (state.bagItems.every((item) => item.data !== null)) {
         alert("player is full");
