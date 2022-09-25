@@ -31,7 +31,7 @@ Builds the app for production and deploys to gh-pages
 ### The tech stack is:
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Redux Toolkit](https://redux-toolkit.js.org/))
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [React](https://ru.reactjs.org/)
 - [Sass (Scss)](https://sass-lang.com/)
 - [Flexbox](https://en.wikipedia.org/wiki/CSS_Flexible_Box_Layout)
