@@ -19,13 +19,6 @@ const items = cols.map((col, i) => {
   }));
 });
 
-//* test data for example
-
-// items[0][5].data = "thing";
-// items[2][10].data = "thing";
-// items[4][5].data = "thing";
-// items[5][5].data = "thing";
-
 const initialState: IInventoryState = {
   items,
 };

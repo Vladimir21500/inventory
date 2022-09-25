@@ -59,9 +59,8 @@ const Cell: React.FC<ICell> = ({ item, type }) => {
 
     switch (currentItem.type) {
       case "inventory":
-        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
-          break;
-        }
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) break;
+
         dispatch(deleteItem(currentItem.item.position));
 
         if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetPosition: item.position }));
@@ -74,9 +73,8 @@ const Cell: React.FC<ICell> = ({ item, type }) => {
 
         break;
       case "player":
-        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
-          break;
-        }
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) break;
+
         dispatch(deleteItemFromPlayer(currentItem.item.position));
 
         if (type === "inventory")
@@ -90,9 +88,8 @@ const Cell: React.FC<ICell> = ({ item, type }) => {
         break;
 
       case "bag":
-        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
-          break;
-        }
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) break;
+
         dispatch(deleteItemFromBag(currentItem.item.position));
 
         if (type === "inventory")
