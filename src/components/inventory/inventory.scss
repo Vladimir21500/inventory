@@ -1,5 +1,10 @@
+@import "../../styles/index.scss";
+
 .inventory {
-  width: 80vw;
+  width: 45vw;
+  @include for-small-up {
+    width: 80vw;
+  }
   &__title {
     display: block;
     text-align: center;
@@ -9,11 +14,17 @@
   }
 
   &__box {
-    height: 28.23vw;
+    height: 110vw;
     margin: 0 20px;
     display: grid;
-    grid-template-columns: repeat(17, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(17, 1fr);
     gap: 0px 0px;
+
+    @include for-small-up {
+      height: 28.23vw;
+      grid-template-columns: repeat(17, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+    }
   }
 }
