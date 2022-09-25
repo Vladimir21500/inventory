@@ -12,9 +12,10 @@ interface IContainer {
 const Container: React.FC<IContainer> = ({ items, type }) => {
   return (
     <div className='container'>
-      {items.map((item) => (
-        <Cell key={item.id} {...item} type={type} />
-      ))}
+      {items.map((item) => {
+        const key = Math.random();
+        return <Cell key={key} item={item} type={type} />;
+      })}
     </div>
   );
 };

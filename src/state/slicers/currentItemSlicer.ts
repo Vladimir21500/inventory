@@ -13,7 +13,7 @@ interface IInitialState {
 }
 
 const initialState: IInitialState = {
-  item: { id: "null", data: null },
+  item: { id: "null", data: null, position: { i: -1, j: -1 }, size: { x: 0, y: 0 } },
   type: "inventory",
 };
 
@@ -26,7 +26,7 @@ export const currentItemSlice = createSlice({
       state.type = action.payload.type;
     },
     resetCurrentItem: (state) => {
-      state.item = { id: "null", data: null };
+      state.item = { id: "null", data: null, position: { i: -1, j: -1 }, size: { x: 0, y: 0 } };
       state.type = "inventory";
     },
   },

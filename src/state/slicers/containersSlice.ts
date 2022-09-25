@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { IItem } from "../../types/items";
+import { IItem, IPosition } from "../../types/items";
 
 interface IContainersState {
   playerItems: IItem[];
@@ -10,6 +10,8 @@ interface IContainersState {
 const items = new Array(5).fill(null).map((item, index) => ({
   id: `${index}`,
   data: null,
+  size: { x: 1, y: 1 },
+  position: { i: index, j: -1 },
 }));
 
 const initialState: IContainersState = {
@@ -21,39 +23,33 @@ export const containersSlice = createSlice({
   name: "containers",
   initialState,
   reducers: {
-    addItemToBag: (state, action: PayloadAction<{ item: IItem; targetId: string }>) => {
-      //! not use item.id
-      const { item, targetId } = action.payload;
-      if (state.bagItems.every((item) => item.data !== null)) {
-        alert("player is full");
-        return;
-      }
-      if (state.bagItems[+targetId].data) {
-        alert("cell is not empty");
-        return;
-      }
-      state.bagItems[+targetId].data = item.data;
+    addItemToBag: (state, action: PayloadAction<{ item: IItem; targetPosition: IPosition }>) => {
+      const { item, targetPosition } = action.payload;
+
+      state.bagItems[targetPosition.i] = { ...item, position: { i: targetPosition.i, j: -1 } };
     },
-    addItemToPlayer: (state, action: PayloadAction<{ item: IItem; targetId: string }>) => {
-      //! not use item.id
-      const { item, targetId } = action.payload;
-      if (state.playerItems.every((item) => item.data !== null)) {
-        alert("player is full");
-        return;
-      }
-      if (state.playerItems[+targetId].data) {
-        alert("cell is not empty");
-        return;
-        //TODO fix problem with deleting after ^ this message
-      } else {
-        state.playerItems[+targetId].data = item.data;
-      }
+    addItemToPlayer: (state, action: PayloadAction<{ item: IItem; targetPosition: IPosition }>) => {
+      const { item, targetPosition } = action.payload;
+
+      state.playerItems[targetPosition.i] = { ...item, position: { i: targetPosition.i, j: -1 } };
     },
-    deleteItemFromBag: (state, action: PayloadAction<string>) => {
-      state.bagItems[+action.payload].data = null;
+    deleteItemFromBag: (state, action: PayloadAction<IPosition>) => {
+      const index = action.payload.i;
+      state.bagItems[index] = {
+        id: `${index}`,
+        data: null,
+        size: { x: 1, y: 1 },
+        position: { i: index, j: -1 },
+      };
     },
-    deleteItemFromPlayer: (state, action: PayloadAction<string>) => {
-      state.playerItems[+action.payload].data = null;
+    deleteItemFromPlayer: (state, action: PayloadAction<IPosition>) => {
+      const index = action.payload.i;
+      state.playerItems[index] = {
+        id: `${index}`,
+        data: null,
+        size: { x: 1, y: 1 },
+        position: { i: index, j: -1 },
+      };
     },
   },
 });

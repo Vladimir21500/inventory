@@ -1,5 +1,5 @@
 import React from "react";
-import { checkTargetCellData } from "../../functions/checkTargetCellData";
+import { validateTargetPlace } from "../../functions/validateTargetPlace";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
   addItemToBag,
@@ -14,12 +14,11 @@ import { IItem, ItemType } from "../../types/items";
 import "./cell.scss";
 
 interface ICell {
-  id: string;
-  data: string | null;
+  item: IItem;
   type: ItemType;
 }
 
-const Cell: React.FC<ICell> = ({ id, data, type }) => {
+const Cell: React.FC<ICell> = ({ item, type }) => {
   const dispatch = useAppDispatch();
   const currentItem = useAppSelector((state) => state.currentItem);
 
@@ -38,6 +37,17 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
 
   const dragOverHandler = (event: any) => {
     event.preventDefault();
+    // const { x, y } = item.size;
+    // if (event.target.dataset.position) {
+    //   debugger;
+    //   const [i, j] = event.target.dataset.position.split("-").map((el) => +el);
+    //   for (let iIndex = i; iIndex < i + y; iIndex++) {
+    //     for (let jIndex = j; jIndex < j + x; jIndex++) {
+    //       document.querySelector(`[data-position="${iIndex}-${jIndex}"]`)?.classList.add("light");
+    //     }
+    //   }
+    // }
+    //! add hover for all block
 
     event.target.className = "cell light";
   };
@@ -49,44 +59,50 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
 
     switch (currentItem.type) {
       case "inventory":
-        if (checkTargetCellData(type, id)) {
-          alert("cell is not empty");
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
           break;
         }
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        dispatch(deleteItem(currentItem.item.position));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetPosition: item.position }));
 
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetPosition: item.position }));
 
-        dispatch(deleteItem(currentItem.item.id));
+        if (type === "inventory")
+          dispatch(addItem({ item: currentItem.item, targetPosition: item.position }));
+
         break;
       case "player":
-        if (checkTargetCellData(type, id)) {
-          alert("cell is not empty");
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
           break;
         }
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        dispatch(deleteItemFromPlayer(currentItem.item.position));
 
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        if (type === "inventory")
+          dispatch(addItem({ item: currentItem.item, targetPosition: item.position }));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetPosition: item.position }));
 
-        dispatch(deleteItemFromPlayer(currentItem.item.id));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetPosition: item.position }));
+
         break;
 
       case "bag":
-        if (checkTargetCellData(type, id)) {
-          alert("cell is not empty");
+        if (!validateTargetPlace(currentItem.item.size, item.position, type)) {
           break;
         }
-        if (type === "inventory") dispatch(addItem({ item: currentItem.item, targetId: id }));
+        dispatch(deleteItemFromBag(currentItem.item.position));
 
-        if (type === "player") dispatch(addItemToPlayer({ item: currentItem.item, targetId: id }));
+        if (type === "inventory")
+          dispatch(addItem({ item: currentItem.item, targetPosition: item.position }));
 
-        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetId: id }));
+        if (type === "player")
+          dispatch(addItemToPlayer({ item: currentItem.item, targetPosition: item.position }));
 
-        dispatch(deleteItemFromBag(currentItem.item.id));
+        if (type === "bag") dispatch(addItemToBag({ item: currentItem.item, targetPosition: item.position }));
+
         break;
     }
     dispatch(resetCurrentItem());
@@ -96,13 +112,14 @@ const Cell: React.FC<ICell> = ({ id, data, type }) => {
     <div
       className='cell'
       draggable
-      onDragStart={(event) => dragStartHandler(event, { id, data }, type)}
+      onDragStart={(event) => dragStartHandler(event, item, type)}
       onDragLeave={(event) => dragLeaveHandler(event)}
       onDragOver={(event) => dragOverHandler(event)}
-      onDrop={(event) => dropHandler(event, { id, data })}
+      onDrop={(event) => dropHandler(event, item)}
       data-type={type}
+      data-position={`${item.position.i}-${item.position.j}`}
     >
-      {data === null ? "" : <span>{data}</span>}
+      {item.data === null ? "" : <span>{item.data}</span>}
     </div>
   );
 };
