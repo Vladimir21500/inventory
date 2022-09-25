@@ -1,0 +1,7 @@
+$sm: 640px;
+
+@mixin for-small-up {
+  @media screen and (min-width: $sm) {
+    @content;
+  }
+}
