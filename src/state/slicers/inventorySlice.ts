@@ -38,10 +38,7 @@ export const inventorySlice = createSlice({
       const { i, j } = action.payload.targetPosition;
       const item = action.payload.item;
       const { x, y } = item.size;
-      if (state.items[i][j].data) {
-        alert("cell is not empty");
-        return;
-      }
+
       if (x + y === 2) {
         state.items[i][j] = item;
       } else {
@@ -66,9 +63,9 @@ export const inventorySlice = createSlice({
         for (let iIndex = i; iIndex < i + y; iIndex++) {
           for (let jIndex = j; jIndex < j + x; jIndex++) {
             state.items[iIndex][jIndex] = {
-              id: `${i}-${j}`,
+              id: `${iIndex}-${jIndex}`,
               data: null,
-              position: { i, j },
+              position: { i: iIndex, j: jIndex },
               size: { x: 1, y: 1 },
             };
           }

@@ -11,7 +11,12 @@ const Inventory: React.FC<{}> = () => {
     <div className='inventory'>
       <h1 className='inventory__title'>Inventory</h1>
       <div className='inventory__box'>
-        {items.map((col) => col.map((item) => <Cell key={item.id} item={item} type='inventory' />))}
+        {items.map((col) =>
+          col.map((item) => {
+            const key = Math.random();
+            return <Cell key={key} item={item} type='inventory' />;
+          })
+        )}
       </div>
     </div>
   );
