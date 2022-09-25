@@ -40,7 +40,7 @@ export const inventorySlice = createSlice({
       const { x, y } = item.size;
 
       if (x + y === 2) {
-        state.items[i][j] = item;
+        state.items[i][j] = { ...item, position: { i, j } };
       } else {
         for (let iIndex = i; iIndex < i + y; iIndex++) {
           for (let jIndex = j; jIndex < j + x; jIndex++) {
