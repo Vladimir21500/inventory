@@ -10,7 +10,7 @@ export const isEnaughtInventoryPlace = (size: ISize, targetPosition: IPosition):
   const xLength = store.getState().inventory.items.length;
   const yLength = store.getState().inventory.items[i].length;
 
-  if (i + x > xLength || j + y > yLength) {
+  if (i + y > xLength || j + x > yLength) {
     return false;
   }
   return true;
