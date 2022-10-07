@@ -14,6 +14,12 @@ declare global {
 
 window.addInventory = addInventory;
 
+//! change for adding to portfolio
+// 1. add form for adding things
+// 2. add possibility to add photo
+// 3. add hover for targetPlace
+//
+
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
