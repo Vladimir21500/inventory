@@ -15,4 +15,11 @@ export interface IItem {
   size: ISize;
 }
 
+export interface IFormData {
+  iIndex: number;
+  jIndex: number;
+  xSize: number;
+  ySize: number;
+}
+
 export type ItemType = "inventory" | "player" | "bag";

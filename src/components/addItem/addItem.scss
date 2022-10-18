@@ -1,0 +1,47 @@
+@import "../../styles/variables.scss";
+
+.add-item {
+  margin: auto;
+  width: 70%;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    justify-content: space-around;
+    & label {
+      margin-right: 5px;
+      line-height: 30px;
+    }
+    & input {
+      width: 70px;
+      border: none;
+      outline: none;
+      color: $font-color;
+      background-color: $background-color;
+      border: 2px solid $border-color;
+      &:focus {
+        background-color: $font-color;
+        color: $background-color;
+      }
+    }
+
+    & button {
+      height: 30px;
+      color: $font-color;
+      font-weight: 700;
+      background-color: $border-color;
+      border: 2px solid $border-color;
+
+      &:hover {
+        background-color: $font-color;
+        color: $background-color;
+      }
+      &:active {
+        opacity: 0.3;
+      }
+    }
+  }
+}
