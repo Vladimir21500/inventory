@@ -39,7 +39,7 @@ const AddItem: React.FC<{}> = () => {
     }
     if (xSize < 1 || ySize < 1) {
       console.log("incorrect size");
-      alert("incorrect boxId");
+      alert("incorrect size");
       return false;
     }
     if (xSize > 5 || ySize > 16) {
