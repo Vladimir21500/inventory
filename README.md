@@ -2,6 +2,9 @@
 
 ## [Site link](https://vladimir21500.github.io/inventory/)
 
+It`s a model of inventory for any game. You have acces to inventory, bag and player containers and you can move things between them.
+Also you can add thing  from console. 
+
 ### The tech stack is:
 
 - [TypeScript](https://www.typescriptlang.org/)
