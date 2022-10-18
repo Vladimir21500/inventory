@@ -37,6 +37,11 @@ const AddItem: React.FC<{}> = () => {
       alert("incorrect boxId");
       return false;
     }
+    if (xSize < 1 || ySize < 1) {
+      console.log("incorrect size");
+      alert("incorrect boxId");
+      return false;
+    }
     if (xSize > 5 || ySize > 16) {
       console.log("too large size");
       alert("too large size");
